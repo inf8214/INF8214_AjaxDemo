@@ -10,12 +10,16 @@
     <h1>Liste des photos :</h1>
     <ul>
         {% for image in images %}
-        <li><a href="{{ url_for('static/json', filename=image['nomDeFichier']) }}">image['titre']</a></li>
-            {% if image['copyright'] == true %}
+        <li>
+            <a href="{{ url_for('fichier', path='img/'+image['nomDeFichier']) }}">
+                {{image['titre']}}
+            </a>
+            {% if image['droits'] == True %}
                 <span> - Des droits d'auteurs peuvent s'appliquer</span>
             {% else %}
                 <span> - Image libre de droits</span>
             {% endif %}
+        </li>
         {% endfor %}
     </ul>
 </body>
