@@ -38,7 +38,7 @@ def bonjour():
     prenom = request.args.get('prenom')
     nom    = request.args.get('nom')
     # Retourne html à partir d'un template en passant un paramètre
-    return "<h1>Bonjour {{prenom}} {{nom}}!</h1>"
+    return f"<h1>Bonjour {prenom} {nom}!</h1>"
 
 # Chemin d'accès complet
 @app.route('/<path:path>')
