@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des photos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Liste des photos :</h1>
+    <ul>
+        {% for image in images %}
+        <li><a href="{{ url_for('static/json', filename=image['nomDeFichier']) }}">image['titre']</a></li>
+            {% if image['copyright'] == true %}
+                <span> - Des droits d'auteurs peuvent s'appliquer</span>
+            {% else %}
+                <span> - Image libre de droits</span>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>

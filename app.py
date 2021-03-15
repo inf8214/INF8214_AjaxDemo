@@ -37,16 +37,25 @@ def allo_nom(nom):
 def bonjour():
     prenom = request.args.get('prenom')
     nom    = request.args.get('nom')
-    # Retourne html à partir d'un template en passant un paramètre
+    # Retourne html directement, avec interpolation
     return f"<h1>Bonjour {prenom} {nom}!</h1>"
+
+# Liste des photos
+@app.route('/liste')
+def liste():
+    # Fichier json local
+    filepath = './static/json/img.json'
+    with open(filepath, 'r') as f:
+        data=f.read()
+    images = json.loads(data)
+    # Retourne html à partir d'un template en passant des paramètres issus d'un fichier json
+    return render_template('liste.html', images=images)
 
 # Chemin d'accès complet
 @app.route('/<path:path>')
 def fichier(path):
     # Retourne fichier static
     return app.send_static_file(path)
-
-
 
 
 

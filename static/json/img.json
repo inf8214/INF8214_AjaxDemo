@@ -1,0 +1,17 @@
+[
+    {
+        "nomDeFichier":"fourmi.jpg",
+        "titre":"Une fourmi avec les puçerons",
+        "droits":true
+    },
+    {
+        "nomDeFichier":"escargot.jpg",
+        "titre":"Un escargot dans la nuit",
+        "droits":true
+    },
+    {
+        "nomDeFichier":"libellule.jpg",
+        "titre":"Une libellule au repos",
+        "droits":false
+    }
+]
