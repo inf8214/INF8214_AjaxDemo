@@ -26,11 +26,19 @@ def allo():
     # Retourne html directement
     return "<h1>Allo!</h1>"
 
-# Route spécifique avec paramètres
+# Route spécifique avec paramètres dans le chemin d'accès
 @app.route('/allo/<nom>')
 def allo_nom(nom):
     # Retourne html à partir d'un template en passant un paramètre
     return render_template('allo.html', nom=nom)
+
+# Route spécifique avec paramètres comme arguments nommés
+@app.route('/bonjour')
+def bonjour():
+    prenom = request.args.get('prenom')
+    nom    = request.args.get('nom')
+    # Retourne html à partir d'un template en passant un paramètre
+    return "<h1>Bonjour {{prenom}} {{nom}}!</h1>"
 
 # Chemin d'accès complet
 @app.route('/<path:path>')
