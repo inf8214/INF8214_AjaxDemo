@@ -12,12 +12,23 @@ CORS(app)
 
 
 # Routes
+####################################
+
+# Racine
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Chemin d'accès complet
+@app.route('/<path:path>')
+def fichier(path):
+    return app.send_static_file(path)
+
+
+
 
 # Diseabling caching
+####################################
 @app.after_request
 def add_header(r):
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -28,5 +39,6 @@ def add_header(r):
 
 
 # Run Flask!
+###################################
 if __name__ == '__main__':
     app.run(debug=True)
