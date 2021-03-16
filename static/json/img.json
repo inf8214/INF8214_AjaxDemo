@@ -2,7 +2,7 @@
     {
         "nomDeFichier":"fourmi.jpg",
         "titre":"Une fourmi avec les puçerons",
-        "droits":true
+        "droits":false
     },
     {
         "nomDeFichier":"escargot.jpg",

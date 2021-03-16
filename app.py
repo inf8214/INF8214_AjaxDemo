@@ -14,7 +14,7 @@ CORS(app)
 # Routes
 ####################################
 
-# Racine
+# Route racine
 @app.route('/')
 def index():
     # Retourne html à partir d'un template
@@ -40,18 +40,33 @@ def bonjour():
     # Retourne html directement, avec interpolation
     return f"<h1>Bonjour {prenom} {nom}!</h1>"
 
-# Liste des photos
+# Route pour liste des photos en html, à partir d'un json local
 @app.route('/liste')
 def liste():
     # Fichier json local
     filepath = './static/json/img.json'
     with open(filepath, 'r') as f:
-        data=f.read()
+        data = f.read()
+    # Liste de dictionnaire
     images = json.loads(data)
     # Retourne html à partir d'un template en passant des paramètres issus d'un fichier json
     return render_template('liste.html', images=images)
 
-# Chemin d'accès complet
+# Route pour liste des photos en json, à partir d'un json local
+@app.route('/listeJson')
+def listeJson():
+    # Fichier json local
+    filepath = './static/json/img.json'
+    with open(filepath, 'r') as f:
+        data = f.read()
+    # Liste de dictionnaire
+    images = json.loads(data)
+    # Filtrer les images libre de droit
+    images = list(filter(lambda image: image['droits']==False, images))
+    # Retourne json
+    return jsonify(images)
+
+# Route pour chemin d'accès complet vers ressource/fichier
 @app.route('/<path:path>')
 def fichier(path):
     # Retourne fichier static
