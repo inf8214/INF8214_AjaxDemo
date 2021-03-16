@@ -23,21 +23,25 @@
     
     <script>
         function getImgList() {
+
+            baseURL = "https://inf8214.herokuapp.com"
+
             $.ajax({
-                url: 'https://inf8214.herokuapp.com/listeJson',
+                url: `${baseURL}/listeJson`,
                 type: 'GET',
                 data: {
-                    "droits": true
+                    "droits": "False"
                 }
             })
             .done((data)=>{
-                console.log(data)
-                // $("#title").text = 'Liste des images :'
-                // for (image in data) {
-                //     myUl = $("#lsit").append(`<li>${image['title']}</li>`)
-                // }
+                $("#title").text('Liste des images :')
+                data.forEach(element => {
+                    $("#list").append(`<li><a href="${baseURL}/img/${element.nomDeFichier}">${element.titre}<a></li>`)
+                })
             })
+            
         }
     </script>
+
 </body>
 </html>
