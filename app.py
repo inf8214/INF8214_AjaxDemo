@@ -52,7 +52,7 @@ def liste():
     # Retourne html à partir d'un template en passant des paramètres issus d'un fichier json
     return render_template('liste.html', images=images)
 
-# Route pour liste des photos en json, à partir d'un json local
+# Route pour liste des photos en json, à partir d'un json local, filtré par argument nommé
 @app.route('/listeJson')
 def listeJson():
     # Fichier json local
@@ -62,7 +62,8 @@ def listeJson():
     # Liste de dictionnaire
     images = json.loads(data)
     # Filtrer les images libre de droit
-    images = list(filter(lambda image: image['droits']==False, images))
+    droits = request.args.get('droits') # string
+    images = list(filter(lambda image: str(image['droits'])==droits, images))
     # Retourne json
     return jsonify(images)
 
