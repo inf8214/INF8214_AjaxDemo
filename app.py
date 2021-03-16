@@ -62,8 +62,9 @@ def listeJson():
     # Liste de dictionnaire
     images = json.loads(data)
     # Filtrer les images libre de droit
-    droits = request.args.get('droits') # string
-    images = list(filter(lambda image: str(image['droits'])==droits, images))
+    if request.args.get('droits'):
+        droits = True if request.args.get('droits').capitalize() == "True" else False
+        images = list(filter(lambda image: image['droits']==droits, images))
     # Retourne json
     return jsonify(images)
 
