@@ -61,11 +61,23 @@ def listeJson():
         data = f.read()
     # Liste de dictionnaire
     images = json.loads(data)
-    # Filtrer les images libre de droit
+    # Filtrer les images
     if request.args.get('droits'):
         droits = True if request.args.get('droits').capitalize() == "True" else False
         images = list(filter(lambda image: image['droits']==droits, images))
     # Retourne json
+    return jsonify(images)
+
+# Route pour demo du 18 mars
+@app.route('/imageList')
+def listeJson():
+    filepath = './static/json/imageList.json'
+    with open(filepath, 'r') as f:
+        data = f.read()
+    images = json.loads(data)
+    if request.args.get('droits'):
+        droits = True if request.args.get('droits').capitalize() == "True" else False
+        images = list(filter(lambda image: image['droits']==droits, images))
     return jsonify(images)
 
 # Route pour chemin d'accès complet vers ressource/fichier
