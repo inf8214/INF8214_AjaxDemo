@@ -70,7 +70,7 @@ def listeJson():
 
 # Route pour demo du 18 mars
 @app.route('/imageList')
-def listeJson():
+def imageList():
     filepath = './static/json/imageList.json'
     with open(filepath, 'r') as f:
         data = f.read()
