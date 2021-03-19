@@ -14,7 +14,7 @@
         <!-- Titre -->
             <h1 class="text-center py-3">Banque d'images</h1>
         <!-- Sélecteurs de type 'radio button' -->
-        <!-- <form name="formulaire"> -->
+        <form name="formulaire">
             <div class="form-check">
                 <input id="radio1" class="form-check-input" type="radio" name="droits" value="False" checked>
                 <label class="form-check-label" for="radio1">Images libres de droit</label>
@@ -23,9 +23,9 @@
                 <input id="radio2" class="form-check-input" type="radio" name="droits" value="True">
                 <label class="form-check-label" for="radio2">Images avec droits d'auteur</label>
             </div>
-        <!-- </form> -->
+        </form>
         <!-- Bouton de recherche -->
-            <button id='search_btn'  type="button" class="btn btn-outline-dark my-5">Rechercher</button>
+            <button id='search_btn' type="button" class="btn btn-outline-dark my-5">Rechercher</button>
         <!-- Endroit pour afficher les résultats -->
             <div id='output'>
                 <h5 id='outputTitle'class="py-3"></h5>
@@ -36,19 +36,41 @@
     <script>
 
         /* Event listener */
+        $('#search_btn').click(getImageList)  // Sans JQuery:   document.querySelector('#search_btn').addEventListener(click, getImageList)
         
-
+        
         /* Ajax request */
         function getImageList() {
 
             // Params
-            const droits = $('input[name="droits"]:checked').val()
-            // const droits = document.formulaire.droits.value
+            const droits = document.formulaire.droits.value  // Autre notation:   const droits = $('input[name="droits"]:checked').val()
+            console.log(droits)
 
             // Request
-
-            
+            $.ajax({
+                url: 'https://inf8214.herokuapp.com/imageList',
+                data: {
+                    droits: droits
+                }
+            })
+            .done(function (data) {
+                console.log(data)
+                $('#outputTitle').html('Liste des images disponibles :')
+                $('#imageList').html('')
+                data.forEach(function (image) {
+                    $('#imageList').append(
+                        `<li class='list-group-item'><a href='${image.imageUrl}'>${image.titre}</a></li>`
+                    )
+                })
+            })
+            .fail(function (err) {
+                console.log(err)
+                $('#outputTitle').html('Le serveur a retourné une erreur - Aucune image disponible')
+                $('#imageList').html('')
+            })
+        
         }
+        
         
     </script>
 
